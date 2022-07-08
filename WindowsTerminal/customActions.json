@@ -1,0 +1,28 @@
+{
+    "actions": [
+        {
+        "command": "duplicateTab",
+        "keys": "ctrl+t"
+        },
+        {
+        "command": "closePane",
+        "keys": "ctrl+w"
+        },
+        {
+        "command": {
+            "action": "splitPane",
+            "split": "horizontal",
+            "splitMode": "duplicate"
+        },
+        "keys": "alt+shift+h"
+        },
+        {
+        "command": {
+            "action": "splitPane",
+            "split": "vertical",
+            "splitMode": "duplicate"
+        },
+        "keys": "alt+shift+v"
+        }
+    ]
+}
