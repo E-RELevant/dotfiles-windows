@@ -55,18 +55,18 @@ function Prompt-ForChoice() {
         do {
             $Reply = Read-Host -Prompt "[Y] Yes [N] No (default is 'Y')"
         }
-        while (-not ($Reply -match "^(?:y|yes|n|no)$"))
+        while (-not ($Reply -match "^(?:y|yes|n|no|)$"))
         
-        if ($Reply -match "^(?:n|no)$") { return $FALSE }
+        if ($Reply -match "^(?:n|no|)$") { return $FALSE }
         return $TRUE
     }
     else {
         do {
             $Reply = Read-Host -Prompt "[Y] Yes [N] No (default is 'N')"
         }
-        while (-not ($Reply -match "^(?:y|yes|n|no)$"))
+        while (-not ($Reply -match "^(?:y|yes|n|no|)$"))
 
-        if ($Reply -match "^(?:y|yes)$") { return $TRUE }
+        if ($Reply -match "^(?:y|yes|)$") { return $TRUE }
         return $FALSE
     }
 }

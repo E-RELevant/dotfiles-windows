@@ -10,9 +10,9 @@ if (Test-Path $DotfilesDirectory) {
     do {
         $Reply = Read-Host "Do you wish to replace the existing directory? [Y] Yes [N] No (default is 'N')"
     }
-    while (-not ($Reply -match "^(?:y|yes|n|no)$"))
+    while (-not ($Reply -match "^(?:y|yes|n|no|)$"))
 
-    if ($Reply -match "^(?:n|no)$") { exit }
+    if ($Reply -match "^(?:n|no|)$") { exit }
     Remove-Item -Path $DotfilesDirectory -Recurse -Force
 }
 New-Item $DotfilesDirectory -ItemType directory
