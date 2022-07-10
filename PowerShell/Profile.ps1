@@ -16,7 +16,7 @@ Import-Module "PSReadLine"
 #                            System Aliases                            #
 ########################################################################
 
-function Get-CommandPath () {
+function Get-CommandPath() {
   Param (
     [String]$CommandName
   )
@@ -35,7 +35,7 @@ function Get-CommandPath () {
 }
 Set-Alias -Name "locate" -Value "Get-CommandPath"
 
-function Connect-RemoteDesktop () {
+function Connect-RemoteDesktop() {
   Param (
     [String]$server
   )
@@ -102,7 +102,7 @@ New-Alias -Name "g" -Value "goto"
 
 ${function:~} = { Set-Location ~ }
 
-# PoSh won't allow ${function:..} because of an invalid path error
+# PowerShell might not allow ${function:..} because of an invalid path error
 ${function:Set-ParentLocation} = { Set-Location .. }
 Set-Alias -Name ".." -Value "Set-ParentLocation"
 
@@ -114,7 +114,7 @@ ${function:.....} = { Set-Location ..\..\..\.. }
 #                              Git Aliases                             #
 ########################################################################
 
-function Invoke-GitSuperClone {
+function Invoke-GitSuperClone() {
   Param ($repositoryName)
   $DirectoryName = $repositoryName.Split("/")[-1].Replace(".git", "")
   & git clone $repositoryName $DirectoryName | Out-Null
@@ -124,53 +124,53 @@ function Invoke-GitSuperClone {
 }
 Set-Alias -Name "gsc" -Value "Invoke-GitSuperClone"
 
-function Invoke-GitCheckoutBranch {
+function Invoke-GitCheckoutBranch() {
   Param ($branchName)
 
   git checkout -b $branchName
 }
 Set-Alias -Name "gcb" -Value "Invoke-GitCheckoutBranch"
 
-function Invoke-GitAdd {
+function Invoke-GitAdd() {
   Param ($fileToAdd)
 
   git add $fileToAdd
 }
 Set-Alias -Name "ga" -Value "Invoke-GitAdd"
 
-function Invoke-GitAddAll {
+function Invoke-GitAddAll() {
   git add --all
 }
 Set-Alias -Name "gaa" -Value "Invoke-GitAddAll"
 
-function Invoke-GitStatus {
+function Invoke-GitStatus() {
   git status
 }
 Set-Alias -Name "gst" -Value "Invoke-GitStatus"
 
-function Invoke-GitCommitMessage {
+function Invoke-GitCommitMessage() {
   Param ($message)
 
   git commit -m $message
 }
 Set-Alias -Name "gcmsg" -Value "Invoke-GitCommitMessage"
 
-function Invoke-GitPushOriginCurrentBranch {
+function Invoke-GitPushOriginCurrentBranch() {
   git push origin HEAD
 }
 Set-Alias -Name "ggp" -Value "Invoke-GitPushOriginCurrentBranch"
 
-function Invoke-GitLogStat {
+function Invoke-GitLogStat() {
   git log --stat
 }
 Set-Alias -Name "glg" -Value "Invoke-GitLogStat"
 
-function Invoke-GitSoftResetLastCommit {
+function Invoke-GitSoftResetLastCommit() {
   git reset --soft HEAD^1
 }
 Set-Alias -Name "gsrlc" -Value "Invoke-GitSoftResetLastCommit"
 
-function Invoke-GitHardResetLastCommit {
+function Invoke-GitHardResetLastCommit() {
   git reset --hard HEAD~1
 }
 Set-Alias -Name "ghrlc" -Value "Invoke-GitHardResetLastCommit"
@@ -179,37 +179,37 @@ Set-Alias -Name "ghrlc" -Value "Invoke-GitHardResetLastCommit"
 #                            Docker Aliases                            #
 ########################################################################
 
-function Invoke-DockerPull {
+function Invoke-DockerPull() {
   docker pull
 }
 Set-Alias -Name "dpl" -Value "Invoke-DockerPull"
 
-function Invoke-DockerListWorkingContainers {
+function Invoke-DockerListWorkingContainers() {
   docker container ls
 }
 Set-Alias -Name "dlc" -Value "Invoke-DockerListWorkingContainers"
 
-function Invoke-DockerListContainers {
+function Invoke-DockerListContainers() {
   docker container ls -a
 }
 Set-Alias -Name "dlca" -Value "Invoke-DockerListContainers"
 
-function Invoke-DockerImages {
+function Invoke-DockerImages() {
   docker images
 }
 Set-Alias -Name "dli" -Value "Invoke-DockerImages"
 
-function Invoke-DockerStopContainer {
+function Invoke-DockerStopContainer() {
   docker container stop
 }
 Set-Alias -Name "dsc" -Value "Invoke-DockerStopContainer"
 
-function Invoke-DockerDeleteContainer {
+function Invoke-DockerDeleteContainer() {
   docker container rm
 }
 Set-Alias -Name "drc" -Value "Invoke-DockerDeleteContainer"
 
-function Invoke-DockerDeleteImage {
+function Invoke-DockerDeleteImage() {
   docker image rm
 }
 Set-Alias -Name "dri" -Value "Invoke-DockerDeleteImage"

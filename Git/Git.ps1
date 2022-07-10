@@ -6,7 +6,7 @@ function Test-GitExistance() {
     return $FALSE
 }
 
-function Set-GitConfiguration {
+function Set-GitConfiguration() {
     [CmdletBinding()]
     Param (
         [Parameter(Position = 0, Mandatory = $TRUE)]

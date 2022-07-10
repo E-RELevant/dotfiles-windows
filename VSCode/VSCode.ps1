@@ -43,7 +43,7 @@ function Install-VSCodeExtensions() {
     Write-Host "Visual Studio Code extensions has been successfully installed." -ForegroundColor "Green"
 }
 
-function Set-VSCodeConfiguration {
+function Set-VSCodeConfiguration() {
     [CmdletBinding()]
     Param (
         [Parameter(Position = 0, Mandatory = $TRUE)]

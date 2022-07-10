@@ -1,4 +1,4 @@
-function Rename-PC {
+function Rename-PC() {
     [CmdletBinding()]
     Param (
         [Parameter(Position = 0, Mandatory = $TRUE)]
@@ -18,7 +18,7 @@ function Rename-PC {
     }
 }
 
-function Edit-Registry {
+function Edit-Registry() {
     [CmdletBinding()]
     Param (
         [Parameter(Position = 0, Mandatory = $TRUE)]
@@ -52,7 +52,7 @@ function Edit-Registry {
     }
 }
 
-function Set-PowerPlan {
+function Set-PowerPlan() {
     # Timeout number in minutes; 0 = never
 
     Write-Host "Configuring power plan:" -ForegroundColor "Yellow"
@@ -72,7 +72,7 @@ function Set-PowerPlan {
     Write-Host "The power plan has been successfully updated." -ForegroundColor "Green"
 }
 
-function Set-ExplorerSettings {
+function Set-ExplorerSettings() {
     Write-Host "Configuring Explorer settings:" -ForegroundColor "Yellow"
 
     # Turn off Windows Narrator hotkey
