@@ -73,7 +73,7 @@ function Set-ConfigurationFile() {
         
         # Windows
         $Reply = Prompt-ForChoice -Question "Would you like to Set a PC name?"
-        $WindowsHash.Add("SetPowerPlan", $(if ($Reply) { (Read-Host "Please enter the name of the computer") } else { $FALSE }) )
+        $WindowsHash.Add("ComputerName", $(if ($Reply) { (Read-Host "Please enter the name of the computer") } else { $FALSE }) )
 
         $Reply = Prompt-ForChoice -Question "Would you like to configure the power plan?"
         $WindowsHash.Add("SetPowerPlan", $(if ($Reply) { $TRUE } else { $FALSE }) )
