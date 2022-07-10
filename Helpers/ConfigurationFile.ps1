@@ -80,6 +80,9 @@ function Set-ConfigurationFile() {
 
         $Reply = Prompt-ForChoice -Question "Would you like to configure explorer settings?"
         $WindowsHash.Add("SetExplorerSettings", $(if ($Reply) { $TRUE } else { $FALSE }) )
+
+        $Reply = Prompt-ForChoice -Question "Would you like to configure 'dark mode' colors?"
+        $WindowsHash.Add("DarkMode", $(if ($Reply) { $TRUE } else { $FALSE }) )
         
         $ConfigJsonBody.Add("Windows", $WindowsHash)
 
@@ -91,10 +94,6 @@ function Set-ConfigurationFile() {
               
                 $Options = @("winget", "msstore")
                 $WindowsTerminalHash.Add("Source", (Select-FromArrayOptions -Array $Options))
-            }
-            else { 
-                $WindowsTerminalHash.Add("Install", $FALSE)
-                $WindowsTerminalHash.Add("Source", "")
             }
         }
         if (!$WindowsTerminalHash.Contains("Install")) {
@@ -236,6 +235,7 @@ function Invoke-InstallByConfigurationFile() {
         if ($Config["Windows"].ComputerName -ne $FALSE) { Rename-PC -Name $Config["Windows"].ComputerName }
         if ($Config["Windows"].SetPowerPlan -eq $TRUE) { Set-PowerPlan }
         if ($Config["Windows"].SetExplorerSettings -eq $TRUE) { Set-ExplorerSettings }
+        if ($Config["Windows"].DarkMode -eq $TRUE) { Set-DarkMode }
     }
 
     # Windows Terminal

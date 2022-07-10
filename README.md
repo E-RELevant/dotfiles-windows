@@ -46,9 +46,10 @@ First, a `config.json` is created containing the selected settings. Then, it wil
 - [PowerToys](https://docs.microsoft.com/en-us/windows/powertoys/install#install-with-windows-package-manager)
   - Installation
 - Windows
-  - Rename Computer
-  - Power plan settings configuration
+  - Dark mode
   - Explorer configuration
+  - Power plan settings configuration
+  - Rename Computer
 - [Windows Terminal](https://docs.microsoft.com/en-us/windows/terminal)
   - Installation (winget, msstore)
   - Settings configuration: custom actions, defaults.
