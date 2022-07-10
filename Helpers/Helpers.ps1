@@ -52,13 +52,21 @@ function Prompt-ForChoice() {
     Write-Host $Question
 
     if ($Default.ToLower() -eq "y") {
-        $Reply = Read-Host -Prompt "[Y] Yes [N] No (default is 'Y')"
-        if ($Reply -match "^[Nn]$") { return $FALSE }
+        do {
+            $Reply = Read-Host -Prompt "[Y] Yes [N] No (default is 'Y')"
+        }
+        while (-not ($Reply -match "^(?:y|yes|n|no)$"))
+        
+        if ($Reply -match "^(?:n|no)$") { return $FALSE }
         return $TRUE
     }
     else {
-        $Reply = Read-Host -Prompt "[Y] Yes [N] No (default is 'N')"
-        if ($Reply -match "^[Yy]$") { return $TRUE }
+        do {
+            $Reply = Read-Host -Prompt "[Y] Yes [N] No (default is 'N')"
+        }
+        while (-not ($Reply -match "^(?:y|yes|n|no)$"))
+
+        if ($Reply -match "^(?:y|yes)$") { return $TRUE }
         return $FALSE
     }
 }

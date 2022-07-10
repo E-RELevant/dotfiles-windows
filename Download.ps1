@@ -6,6 +6,13 @@ $DirFullPath = Join-Path -Path $DotfilesDirectory -ChildPath "$($GitHubRepositor
 
 # Dotfiles directory
 if (Test-Path $DotfilesDirectory) {
+    Write-Host "There is an existing directory under $($DotfilesDirectory)." -ForegroundColor "Yellow"
+    do {
+        $Reply = Read-Host "Do you wish to replace the existing directory? [Y] Yes [N] No (default is 'N')"
+    }
+    while (-not ($Reply -match "^(?:y|yes|n|no)$"))
+
+    if ($Reply -match "^(?:n|no)$") { exit }
     Remove-Item -Path $DotfilesDirectory -Recurse -Force
 }
 New-Item $DotfilesDirectory -ItemType directory
