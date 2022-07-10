@@ -1,4 +1,4 @@
-﻿function Test-Elevated {
+﻿function Test-Elevated() {
     # Get the ID and security principal of the current user account
     $myIdentity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
     $myPrincipal = new-object System.Security.Principal.WindowsPrincipal($myIdentity)
