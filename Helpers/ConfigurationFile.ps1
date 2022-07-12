@@ -30,7 +30,7 @@ function Set-ConfigurationFile() {
                 $GitHash.Add("Install", $TRUE)
             }
         }
-        if (!$WindowsTerminalHash.Contains("Install")) {
+        if (!$GitHash.Contains("Install")) {
             $GitHash.Add("Install", $FALSE)
         }
         $Reply = Prompt-ForChoice -Question "Would you like to configure Git settings?"
