@@ -57,7 +57,7 @@ function Prompt-ForChoice() {
         }
         while (-not ($Reply -match "^(?:y|yes|n|no|)$"))
         
-        if ($Reply -match "^(?:n|no|)$") { return $FALSE }
+        if ($Reply -match "^(?:n|no)$") { return $FALSE }
         return $TRUE
     }
     else {
@@ -66,7 +66,7 @@ function Prompt-ForChoice() {
         }
         while (-not ($Reply -match "^(?:y|yes|n|no|)$"))
 
-        if ($Reply -match "^(?:y|yes|)$") { return $TRUE }
+        if ($Reply -match "^(?:y|yes)$") { return $TRUE }
         return $FALSE
     }
 }
