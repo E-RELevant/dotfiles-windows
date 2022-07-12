@@ -28,14 +28,24 @@ else {
     # Verify whether running as Administrator
     if (!(Test-Elevated)) {
         # Stop, and run as Administrator
-        Write-Host 'Not running as Administrator, attempting to elevate...'
-        $arguments = "& '" + $MyInvocation.MyCommand.Definition + "'"
-        Start-Process powershell.exe -Verb runAs -ArgumentList $arguments
-        Start-Sleep -Seconds 3
-        Stop-Process -Id $PID
+        Write-Warning "You are not running this as a 'Domain Admin' or 'Local Administrator' of $($ENV:COMPUTERNAME)."
+        Write-Warning "The script will be re-executed as Local Administrator shortly."
+        Start-Sleep 3
+
+        # Build base arguments for powershell.exe as string array
+        $ArgList = '-NoLogo', '-NoProfile', '-NoExit', '-ExecutionPolicy Bypass', '-File', ('"{0}"' -f $PSCommandPath)
+
+        try {
+            Start-Process PowerShell.exe -Verb "RunAs" -WorkingDirectory $PWD -ArgumentList $ArgList -Verbose -ErrorAction "Stop"
+        
+            # Exit the current script. 
+            exit
+        }
+        catch { throw }
     }
 
-    Write-Host "Running PowerShell as administrator." -ForegroundColor "Green"
+    $CurrentLoginPrincipal = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent())
+    Write-Host " $($CurrentLoginPrincipal.Identity.Name.ToString()) is currently running as a Local Administrator." -ForegroundColor "Green"
 
     # Save user configuration in persistence
     $DotfilesConfigFile = Join-Path $DotfilesDirectory -ChildPath "config.json"
