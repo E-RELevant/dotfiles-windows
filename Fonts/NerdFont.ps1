@@ -55,7 +55,10 @@
             if ($InstalledFontName -match $FontName) { $Copy = $FALSE }
         }
 
-        if ($Copy) { $ObjFontsDirectory.CopyHere($Font.FullName) }
+        if ($Copy) { 
+            Write-Host "Installing '$FontName'..." -ForegroundColor "Yellow"
+            $ObjFontsDirectory.CopyHere($Font.FullName)
+        }
         else { $ExistingFonts++ }
     }
     if ($ExistingFonts -gt 0) { Write-Host "$($ExistingFonts)/$($Fonts.Length) fonts were already installed ==> " -NoNewLine }
