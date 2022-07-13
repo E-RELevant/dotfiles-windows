@@ -36,7 +36,8 @@ function Set-WindowsTerminalConfiguration() {
     Write-Host "Configuring Windows Terminal settings:" -ForegroundColor "Yellow"
     
     $LocalAppDataPackagesPath = Join-Path -Path $env:LOCALAPPDATA -ChildPath "Packages"
-    $WindowsTerminalSettingsPath = Join-Path (Get-ChildItem -Path $LocalAppDataPackagesPath -Filter "Microsoft.WindowsTerminal*") -ChildPath "LocalState" | Join-Path -ChildPath "settings.json"
+    $WindowsTerminalSettingsPath = Join-Path (Get-ChildItem -Path $LocalAppDataPackagesPath -Filter "Microsoft.WindowsTerminal*") -ChildPath "LocalState" | `
+        Join-Path -ChildPath "settings.json"
 
     $CustomActionsPath = Join-Path $DotfilesDirectory -ChildPath "WindowsTerminal" | Join-Path -ChildPath "customActions.json"
     $ProfileDefaultsPath = Join-Path $DotfilesDirectory -ChildPath "WindowsTerminal" | Join-Path -ChildPath "profileDefaults.json"

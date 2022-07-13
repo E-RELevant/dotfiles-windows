@@ -132,7 +132,7 @@ function Install-PowerShellModules() {
 
     Install-Module -Name "posh-git" -Repository "PSGallery"
     Install-Module -Name "PSWebSearch" -Repository "PSGallery"
-    Install-Module -Name "PSReadLine" -Repository "PSGallery"
+    Install-Module -Name "PSReadLine" -Repository "PSGallery" -Force # Might exist in an earlier version
     Install-Module -Name "Terminal-Icons" -Repository "PSGallery"
     Install-Module -Name "z" -Repository "PSGallery"
 

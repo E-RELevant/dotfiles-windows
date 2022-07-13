@@ -57,17 +57,17 @@ function Set-PowerPlan() {
 
     Write-Host "Configuring power plan:" -ForegroundColor "Yellow"
     
-    # Hibernate timeout
-    powercfg -change "hibernate-timeout-ac" 0
-
     # Disk timeout
     powercfg -change "disk-timeout-ac" 0
 
-    # Sleep timeout
-    powercfg -change "standby-timeout-ac" 0
-
+    # Hibernate timeout
+    powercfg -change "hibernate-timeout-ac" 0
+    
     # Screen timeout
     powercfg -change "monitor-timeout-ac" 10
+    
+    # Sleep timeout
+    powercfg -change "standby-timeout-ac" 0
 
     Write-Host "The power plan has been successfully updated." -ForegroundColor "Green"
 }

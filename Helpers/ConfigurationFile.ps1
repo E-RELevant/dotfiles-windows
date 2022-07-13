@@ -17,11 +17,11 @@ function Set-ConfigurationFile() {
         Write-Host "Setting up a new config.json:" -ForegroundColor "Yellow"
         
         # Sub-HashTables declaration
-        $WindowsHash = [ordered]@{}
-        $PowerShellHash = [ordered]@{}
-        $WindowsTerminalHash = [ordered]@{}
         $GitHash = [ordered]@{}
+        $PowerShellHash = [ordered]@{}
         $VSCodeHash = [ordered]@{}
+        $WindowsHash = [ordered]@{}
+        $WindowsTerminalHash = [ordered]@{}
 
         # Git
         if (!(Test-GitExistance)) {

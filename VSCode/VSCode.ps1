@@ -22,23 +22,22 @@ function Install-VSCodeExtensions() {
     Write-Host "Installing Visual Studio Code extensions:" -ForegroundColor "Yellow"
 
     # Languages
-    code --install-extension "formulahendry.auto-rename-tag"
     code --install-extension "ecmel.vscode-html-css"
-    code --install-extension "yzhang.markdown-all-in-one"
-    code --install-extension "ms-vscode.powershell"
+    code --install-extension "formulahendry.auto-rename-tag"
     code --install-extension "hashicorp.terraform"
+    code --install-extension "ms-vscode.powershell"
     code --install-extension "redhat.vscode-yaml"
     code --install-extension "robole.markdown-snippets"
+    code --install-extension "yzhang.markdown-all-in-one"
 
     # IDE Tools
+    code --install-extension "esbenp.prettier-vscode"
     code --install-extension "ritwickdey.LiveServer"
     code --install-extension "streetsidesoftware.code-spell-checker"
-    code --install-extension "esbenp.prettier-vscode"
-    code --install-extension "formulahendry.code-runner"
 
     # IDE Themes
-    code --install-extension "zhuangtongfa.material-theme"
     code --install-extension "PKief.material-icon-theme"
+    code --install-extension "zhuangtongfa.material-theme"
 
     Write-Host "Visual Studio Code extensions has been successfully installed." -ForegroundColor "Green"
 }
