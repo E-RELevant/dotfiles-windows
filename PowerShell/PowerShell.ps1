@@ -117,7 +117,7 @@ function Copy-PowerShellProfile() {
         (Join-Path (Split-Path -Parent $Profile) -ChildPath "Microsoft.PowerShell_profile.ps1")
     }
 
-    Copy-Item $TemplateFilePath -Destination PowerShellProfile
+    Copy-Item $TemplateFilePath -Destination $PowerShellProfile
 
     if (-not (Test-Path $TemplateFilePath)) {
         Write-Host "Could not create the PowerShell profile." -ForegroundColor "Red"
