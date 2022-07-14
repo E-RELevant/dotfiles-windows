@@ -23,6 +23,10 @@ function Set-ConfigurationFile() {
         $WindowsHash = [ordered]@{}
         $WindowsTerminalHash = [ordered]@{}
 
+        # 7-Zip
+        $Reply = Prompt-ForChoice -Question "Would you like to install 7-Zip?"
+        $ConfigJsonBody.Add("7-Zip", $(if ($Reply) { $TRUE } else { $FALSE }) )
+
         # Git
         if (!(Test-GitExistance)) {
             $Reply = Prompt-ForChoice -Question "Would you like to install Git?"
@@ -192,6 +196,11 @@ function Invoke-InstallByConfigurationFile() {
     )
     
     $InstallNerdFont = $FALSE
+
+    # 7-Zip
+    if (($Config.ContainsKey("7-Zip")) -and ($Config["7-Zip"] -eq $TRUE)) { 
+        Install-WingetAppById -AppId "7zip.7zip"
+    }
 
     # Git
     if ($Config.ContainsKey("Git")) {
