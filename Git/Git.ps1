@@ -27,7 +27,3 @@ function Set-GitConfiguration() {
 
     Write-Host "Git has been successfully configured." -ForegroundColor "Green"
 }
-
-function Install-Git() {
-    winget install --id Git.Git --exact --source winget --force --accept-package-agreements
-}

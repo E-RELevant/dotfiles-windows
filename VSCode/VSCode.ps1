@@ -10,14 +10,6 @@ function Test-VSCodeExistence() {
     return $FALSE
 }
 
-function Install-VSCode() {    
-    Write-Host "Installing Visual Studio Code:" -ForegroundColor "Yellow"
-
-    winget install --id "Microsoft.VisualStudioCode" --exact --source winget --force --accept-package-agreements
-
-    Write-Host "Visual Studio Code has been successfully installed." -ForegroundColor "Green"
-}
-
 function Install-VSCodeExtensions() {    
     Write-Host "Installing Visual Studio Code extensions:" -ForegroundColor "Yellow"
 

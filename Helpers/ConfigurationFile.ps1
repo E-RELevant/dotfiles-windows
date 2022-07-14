@@ -195,7 +195,7 @@ function Invoke-InstallByConfigurationFile() {
 
     # Git
     if ($Config.ContainsKey("Git")) {
-        if ($Config["Git"].Install -eq $TRUE) { Install-Git }
+        if ($Config["Git"].Install -eq $TRUE) { Install-WingetAppById -AppId "Git.Git" }
         if (($null -ne $Config["Git"].UserName) -and ($null -ne $Config["Git"].Email)) {
             Set-GitConfiguration -GitUsername $Config["Git"].UserName -GitEmail $Config["Git"].Email
         }
@@ -209,7 +209,7 @@ function Invoke-InstallByConfigurationFile() {
 
     # PowerShell
     if ($Config.ContainsKey("PowerShell")) {
-        if ($Config["PowerShell"].InstallCore -eq $TRUE) { Install-PowerShellCore }
+        if ($Config["PowerShell"].InstallCore -eq $TRUE) { Install-WingetAppById -AppId "Microsoft.PowerShell" }
         if ($Config["PowerShell"].SetProfile -eq $TRUE) { 
             Set-PowerShellProfile -DotfilesDirectory $DotfilesDirectory -PowerShellConfig $Config["PowerShell"]
         }
@@ -222,12 +222,12 @@ function Invoke-InstallByConfigurationFile() {
             }
             Install-PowerShellModules
         }
-        if ($Config["PowerShell"].InstallOhMyPosh -eq $TRUE) { }
+        if ($Config["PowerShell"].InstallOhMyPosh -eq $TRUE) { Install-WingetAppById -AppId "JanDeDobbeleer.OhMyPosh" }
     }
 
     # PowerToys
     if (($Config.ContainsKey("PowerToys")) -and ($Config["PowerToys"] -eq $TRUE)) { 
-        Install-PowerToys
+        Install-WingetAppById -AppId "Microsoft.PowerToys"
     }
 
     # Windows
@@ -241,7 +241,7 @@ function Invoke-InstallByConfigurationFile() {
     # Windows Terminal
     if ($Config.ContainsKey("WindowsTerminal")) { 
         if ($Config["WindowsTerminal"].Install -eq $TRUE) {
-            Install-WindowsTerminal -Option $Config["WindowsTerminal"].Source
+            Install-WingetAppById -AppId "Windows Terminal" -Source $Config["WindowsTerminal"].Source
         }
         if ($Config["WindowsTerminal"].ConfigureSettings -eq $TRUE) {
             if ($InstallNerdFont) { Set-WindowsTerminalConfiguration -DotfilesDirectory $DotfilesDirectory -ConfigNerdFont $Config["NerdFont"] }
@@ -251,7 +251,7 @@ function Invoke-InstallByConfigurationFile() {
     
     # Visual Studio Code
     if ($Config.ContainsKey("VSCode")) {
-        if ($Config["VSCode"].Install -eq $TRUE) { Install-VSCode }
+        if ($Config["VSCode"].Install -eq $TRUE) { Install-WingetAppById -AppId "Microsoft.VisualStudioCode" }
         if ($Config["VSCode"].InstallExtensions -eq $TRUE) { Install-VSCodeExtensions }
         if ($Config["VSCode"].ConfigureSettings -eq $TRUE) {
             Set-VSCodeConfiguration -DotfilesDirectory $DotfilesDirectory

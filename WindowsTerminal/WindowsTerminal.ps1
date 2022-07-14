@@ -10,17 +10,6 @@ function Test-WindowsTerminalExistance() {
     return $FALSE
 }
 
-function Install-WindowsTerminal() {
-    [CmdletBinding()]
-    Param (
-        [Parameter(Position = 0, Mandatory = $TRUE)]
-        [String]
-        $Option
-    )
-
-    winget install "Windows Terminal" --source $Option --force --accept-package-agreements
-}
-
 function Set-WindowsTerminalConfiguration() {
     [CmdletBinding()]
     Param (

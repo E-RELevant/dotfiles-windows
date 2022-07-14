@@ -16,7 +16,7 @@ else {
 
     Push-Location $DotfilesDirectory
     $SubDirectories = @("Directories", "Fonts", "Git", "Helpers",
-        "PowerShell", "PowerToys", "VSCode", "Windows", "WindowsTerminal")
+        "PowerShell", "VSCode", "Windows", "WindowsTerminal")
     $ExcludedScripts = @("Profile.ps1")
     $SubDirectories | ForEach-Object { Get-ChildItem -Path $_ -Filter "*.ps1" } | `
         Where-Object { $ExcludedScripts -notcontains $_.Name } | `

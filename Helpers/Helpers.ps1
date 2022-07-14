@@ -93,6 +93,7 @@ function Get-PSRepositoryTrustedStatus() {
         return $FALSE
     }
 }
+
 function Select-FromArrayOptions() {
     [CmdletBinding()]
     Param (
@@ -113,4 +114,23 @@ function Select-FromArrayOptions() {
     } While ((-not $Reply) -or (0 -gt $Reply) -or ($Array.Count -lt $Reply))
 
     return $Array[$Reply - 1]
+}
+
+function Install-WingetAppById() {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Position = 0, Mandatory = $TRUE)]
+        [String]
+        $AppId,
+
+        [Parameter(Position = 1, Mandatory = $FALSE)]
+        [String]
+        $Source = "winget"
+    )
+
+    Write-Host "Installing '$($AppId)' (source: '$($Source)'):" -ForegroundColor "Yellow"
+
+    winget install --id $AppId --exact --source $Source --force --accept-package-agreements --accept-source-agreements
+
+    Write-Host "'$($AppId)' has been successfully installed." -ForegroundColor "Green"
 }

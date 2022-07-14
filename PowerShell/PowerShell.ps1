@@ -10,14 +10,6 @@ function Test-PowerShellCoreExistance() {
     return $FALSE
 }
 
-function Install-PowerShellCore() {
-    Write-Host "Installing PowerShell Core:" -ForegroundColor "Yellow"
-
-    winget install --id "Microsoft.PowerShell" --exact --source winget --force --accept-package-agreements
-
-    Write-Host "PowerShell Core has been successfully installed." -ForegroundColor "Green"
-}
-
 function Set-PowerShellProfile() {
     [CmdletBinding()]
     Param (
@@ -137,12 +129,4 @@ function Install-PowerShellModules() {
     Install-Module -Name "z" -Repository "PSGallery"
 
     Write-Host "PowerShell modules has been successfully installed." -ForegroundColor "Green"
-}
-
-function Install-OhMyPosh() {    
-    Write-Host "Installing Oh My Posh:" -ForegroundColor "Yellow"
-
-    winget install --id "JanDeDobbeleer.OhMyPosh" --exact --source winget --force --accept-package-agreements
-
-    Write-Host "Oh My Posh has been successfully installed." -ForegroundColor "Green"
 }
