@@ -25,6 +25,8 @@ First, a `config.json` is created containing the selected settings. Then, it wil
 
 ### Options
 
+- [7-Zip](https://www.7-zip.org/download.html)
+  - Installation
 - [Git](https://git-scm.com/downloads)
   - Installation
   - Configuration
