@@ -147,9 +147,12 @@ function Write-AsTypeWriter() {
         $ForegroundColor = "White"
     )
 
+    $Random = New-Object System.Random
+
     $Content -split '' | `
         ForEach-Object {
         Write-Host $_ -ForegroundColor $ForegroundColor -NoNewline
-        Start-Sleep -Milliseconds $(1 + $Random.Next(200))
+        Start-Sleep -milliseconds $(1 + $Random.Next(200))
     }
+    Write-Host
 }
