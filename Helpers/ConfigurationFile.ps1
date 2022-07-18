@@ -150,7 +150,7 @@ function Set-ConfigurationFile() {
             Write-Host "Bye-bye." -ForegroundColor "Yellow"
             Start-Sleep -Seconds 1
             
-            exit
+            break
         }
     }
     else {
