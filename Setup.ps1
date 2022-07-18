@@ -7,8 +7,6 @@ else {
     # Welcome message
     Clear-Host
     Write-Host "Welcome to .dotfiles for Microsoft Windows OS" -ForegroundColor "Yellow"
-    Write-Host "Please do not use your device while the script is running." -ForegroundColor "Yellow"
-    Write-Host "[!] Note: upon completion, the script will restart the computer." -ForegroundColor "Yellow"
     Write-Host $("*" * 72) -ForegroundColor "Yellow"
 
     # Load helpers
@@ -50,7 +48,7 @@ else {
     # Save user configuration in persistence
     $DotfilesConfigFile = Join-Path $DotfilesDirectory -ChildPath "config.json"
     Set-ConfigurationFile -DotfilesConfigFile $DotfilesConfigFile
-    
+
     # Load user configuration from persistence
     $Config = Get-ConfigurationFile -DotfilesConfigFile $DotfilesConfigFile
 

@@ -134,3 +134,22 @@ function Install-WingetAppById() {
 
     Write-Host "'$($AppId)' has been successfully installed." -ForegroundColor "Green"
 }
+
+function Write-AsTypeWriter() {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Position = 0, Mandatory = $TRUE)]
+        [String]
+        $Content,
+        
+        [Parameter(Position = 1, Mandatory = $FALSE)]
+        [String]
+        $ForegroundColor = "White"
+    )
+
+    $Content -split '' | `
+        ForEach-Object {
+        Write-Host $_ -ForegroundColor $ForegroundColor -NoNewline
+        Start-Sleep -Milliseconds $(1 + $Random.Next(200))
+    }
+}

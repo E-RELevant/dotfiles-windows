@@ -195,6 +195,12 @@ function Invoke-InstallByConfigurationFile() {
         $DotfilesDirectory
     )
     
+    # Warnings
+    Clear-Host
+    Write-AsTypeWriter -Content "Please do not use your device while the script is running." -ForegroundColor "Yellow"
+    Write-AsTypeWriter "[!] Note: upon completion, the script will restart the computer." -ForegroundColor "Yellow"
+    Write-Host $("*" * 72) -ForegroundColor "Yellow"
+
     $InstallNerdFont = $FALSE
 
     # 7-Zip
