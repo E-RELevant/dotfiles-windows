@@ -211,7 +211,7 @@ function Invoke-InstallByConfigurationFile() {
     # Git
     if ($Config.ContainsKey("Git")) {
         if ($Config["Git"].Install -eq $TRUE) { Install-WingetAppById -AppId "Git.Git" }
-        if (($null -ne $Config["Git"].UserName) -and ($null -ne $Config["Git"].Email)) {
+        if ($Config["Git"].UserName -and $Config["Git"].Email) {
             Set-GitConfiguration -GitUsername $Config["Git"].UserName -GitEmail $Config["Git"].Email
         }
     }
