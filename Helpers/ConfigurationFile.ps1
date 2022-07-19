@@ -144,7 +144,7 @@ function Set-ConfigurationFile() {
         $Reply = Prompt-ForChoice -Question "Would you like to execute the script right now?"
         if (!$Reply) { 
             Write-Host "You can always find me at " -ForegroundColor "Yellow" -NoNewline
-            Write-Host "'$($HOME)\.dotfiles'."
+            Write-Host "'$($HOME)\.dotfiles\Setup.ps1'."
             Start-Sleep -Seconds 3
             
             Write-Host "Bye-bye." -ForegroundColor "Yellow"

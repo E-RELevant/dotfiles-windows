@@ -26,7 +26,7 @@ else {
     # Verify whether running as Administrator
     if (!(Test-Elevated)) {
         # Stop, and run as Administrator
-        Write-Warning "You are not running this as a 'Domain Admin' or 'Local Administrator' of $($ENV:COMPUTERNAME)."
+        Write-Warning "You are not running this as a 'Domain Admin' or 'Local Administrator' of $($env:COMPUTERNAME)."
         Write-Warning "The script will be re-executed as Local Administrator shortly."
         Start-Sleep 3
 
@@ -43,7 +43,7 @@ else {
     }
 
     $CurrentLoginPrincipal = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent())
-    Write-Host " $($CurrentLoginPrincipal.Identity.Name.ToString()) is currently running as a Local Administrator." -ForegroundColor "Green"
+    Write-Host "$($CurrentLoginPrincipal.Identity.Name.ToString()) is currently running as a Local Administrator." -ForegroundColor "Green"
 
     # Save user configuration in persistence
     $DotfilesConfigFile = Join-Path $DotfilesDirectory -ChildPath "config.json"

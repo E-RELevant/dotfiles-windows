@@ -45,7 +45,7 @@ function Edit-Registry() {
         catch { $Error.RemoveAt(0) }
     }
     
-    Set-ItemProperty -Path $RegistryPath -Name $PropertyName -Value $PropertyValue
+    Set-ItemProperty -Path $RegistryPath -Name $PropertyName -Value $PropertyValue | Out-Null
 
     if ($null -eq (Get-ItemPropertyValue -Path $RegistryPath -Name $PropertyName -ErrorAction SilentlyContinue)) {
         Write-Host "Could not create the $(Join-Path $RegistryPath -ChildPath $PropertyName) registry." -ForegroundColor "Red"
