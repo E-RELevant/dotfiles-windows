@@ -1,28 +1,28 @@
 {
-    "actions": [
-        {
-        "command": "duplicateTab",
-        "keys": "ctrl+t"
-        },
-        {
-        "command": "closePane",
-        "keys": "ctrl+w"
-        },
-        {
-        "command": {
-            "action": "splitPane",
-            "split": "left",
-            "splitMode": "duplicate"
-        },
-        "keys": "alt+shift+h"
-        },
-        {
-        "command": {
-            "action": "splitPane",
-            "split": "down",
-            "splitMode": "duplicate"
-        },
-        "keys": "alt+shift+v"
-        }
-    ]
+	"actions": [
+		{
+			"command": "duplicateTab",
+			"keys": "ctrl+t"
+		},
+		{
+			"command": "closePane",
+			"keys": "ctrl+w"
+		},
+		{
+			"command": {
+				"action": "splitPane",
+				"split": "right",
+				"splitMode": "duplicate"
+			},
+			"keys": "alt+shift+h"
+		},
+		{
+			"command": {
+				"action": "splitPane",
+				"split": "down",
+				"splitMode": "duplicate"
+			},
+			"keys": "alt+shift+v"
+		}
+	]
 }

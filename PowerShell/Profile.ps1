@@ -44,6 +44,11 @@ function Connect-RemoteDesktop() {
 }
 Set-Alias -Name "rdp" -Value "Connect-RemoteDesktop"
 
+function Get-Uptime {
+  Get-CimInstance -ClassName Win32_OperatingSystem | Select-Object CSName, LastBootUpTime
+}
+Set-Alias -Name "uptime" -Value "Get-Uptime"
+
 ########################################################################
 #                          Directories Aliases                         #
 ########################################################################
@@ -68,6 +73,21 @@ Set-Alias -Name "sudo" -Value "Invoke-AsAdmin"
 
 function CreateAndSet-Directory([String] $path) { New-Item $path -ItemType Directory -ErrorAction SilentlyContinue Set-Location $path }
 Set-Alias -Name "mkcd" -Value "CreateAndSet-Directory"
+
+function Find-FileInDirectoryRecursive($name) {
+  Get-ChildItem -Recurse -Filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
+    $place_path = $_.directory
+    Write-Host "${place_path}\${_}"
+  }
+}
+Set-Alias -Name "find" -Value "Find-FileInDirectoryRecursive"
+
+function Expand-ZipFile ($file) {
+  $dirname = (Get-Item $file).Basename
+  Write-Host "Extracting $file to $dirname"
+  New-Item -Force -ItemType directory -Path $dirname
+  Expand-Archive $file -OutputPath $dirname -ShowProgress
+}
 
 ########################################################################
 #                             Navigation                               #
@@ -221,11 +241,105 @@ New-Alias -Name "k" -Value "kubectl"
 #                              PSReadLine                              #
 ########################################################################
 
+# Prediction functions
 Set-PSReadLineOption -PredictionSource "History"
 Set-PSReadLineOption -HistoryNoDuplicates
 Set-PSReadLineOption -PredictionViewStyle "ListView"
 Set-PSReadLineOption -Colors @{ "InlinePrediction" = [ConsoleColor]::DarkGray }
+
+# Attempt to perform completion on the text surrounding the cursor.
 Set-PSReadLineKeyHandler -Key "Tab" -Function "Complete"
+
+# Start interactive screen capture - up/down arrows select lines,
+# enter copies selected text to clipboard as text and HTML.
+Set-PSReadLineKeyHandler -Chord 'Ctrl+d,Ctrl+c' -Function "CaptureScreen"
+
+# Token based word movement
+Set-PSReadLineKeyHandler -Key Alt+d -Function ShellKillWord
+Set-PSReadLineKeyHandler -Key Alt+Backspace -Function ShellBackwardKillWord
+Set-PSReadLineKeyHandler -Key Alt+b -Function ShellBackwardWord
+Set-PSReadLineKeyHandler -Key Alt+f -Function ShellForwardWord
+Set-PSReadLineKeyHandler -Key Alt+B -Function SelectShellBackwardWord
+Set-PSReadLineKeyHandler -Key Alt+F -Function SelectShellForwardWord
+
+# Shows the entire or filtered history using Out-GridView.
+Set-PSReadLineKeyHandler -Key "F7" `
+  -BriefDescription "History" `
+  -LongDescription "Show command history" `
+  -ScriptBlock {
+  $pattern = $null
+  [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$pattern, [ref]$null)
+  if ($pattern) {
+    $pattern = [regex]::Escape($pattern)
+  }
+
+  $history = [System.Collections.ArrayList]@(
+    $last = ''
+    $lines = ''
+    foreach ($line in [System.IO.File]::ReadLines((Get-PSReadLineOption).HistorySavePath)) {
+      if ($line.EndsWith('`')) {
+        $line = $line.Substring(0, $line.Length - 1)
+        $lines = if ($lines) {
+          "$lines`n$line"
+        }
+        else {
+          $line
+        }
+        continue
+      }
+
+      if ($lines) {
+        $line = "$lines`n$line"
+        $lines = ''
+      }
+
+      if (($line -cne $last) -and (!$pattern -or ($line -match $pattern))) {
+        $last = $line
+        $line
+      }
+    }
+  )
+  $history.Reverse()
+
+  $command = $history | Out-GridView -Title History -PassThru
+  if ($command) {
+    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+    [Microsoft.PowerShell.PSConsoleReadLine]::Insert(($command -join "`n"))
+  }
+}
+
+# Enter matching quotes
+Set-PSReadLineKeyHandler -Key "Alt+(", "Alt+{", "Alt+[" `
+  -BriefDescription "InsertPairedBraces" `
+  -LongDescription "Insert matching braces" `
+  -ScriptBlock {
+  param($key, $arg)
+
+  $closeChar = switch ($key.KeyChar) {
+    <#case#> '(' { [char]')'; break }
+    <#case#> '{' { [char]'}'; break }
+    <#case#> '[' { [char]']'; break }
+  }
+
+  $selectionStart = $null
+  $selectionLength = $null
+  [Microsoft.PowerShell.PSConsoleReadLine]::GetSelectionState([ref]$selectionStart, [ref]$selectionLength)
+
+  $line = $null
+  $cursor = $null
+  [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+    
+  if ($selectionStart -ne -1) {
+    # Text is selected, wrap it in brackets
+    [Microsoft.PowerShell.PSConsoleReadLine]::Replace($selectionStart, $selectionLength, $key.KeyChar + $line.SubString($selectionStart, $selectionLength) + $closeChar)
+    [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($selectionStart + $selectionLength + 2)
+  }
+  else {
+    # No text is selected, wrap entire line
+    [Microsoft.PowerShell.PSConsoleReadLine]::Replace(0, $line.Length, $key.KeyChar + $line + $closeChar)
+    [Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()
+  }
+}
 
 ########################################################################
 #                              Oh My Posh                              #

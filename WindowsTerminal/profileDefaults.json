@@ -1,6 +1,7 @@
 {
 	"defaults": {
 		"colorScheme": "Campbell",
+		"elevate": true,
 		"font": {
 			"face": "<FONT_NAME>",
 			"size": 10
